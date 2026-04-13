@@ -4,6 +4,12 @@ import { getFirstProductHandle, getProductByHandle } from "@/lib/shopify/product
 
 export const revalidate = 300;
 
+function getFeaturedHandle(): string | null {
+  const handle = process.env.SHOPIFY_FEATURED_HANDLE?.trim();
+
+  return handle ? handle : null;
+}
+
 function SetupState() {
   return (
     <main className="min-h-screen bg-[radial-gradient(circle_at_top,rgba(183,151,79,0.18),transparent_30%),linear-gradient(180deg,#f7f2e7_0%,#f2ebdf_36%,#ece1d2_100%)] text-stone-950">
@@ -34,6 +40,7 @@ function SetupState() {
                 SHOPIFY_STORE_DOMAIN{"\n"}
                 SHOPIFY_STOREFRONT_API_TOKEN{"\n"}
                 SHOPIFY_API_VERSION{"\n"}
+                SHOPIFY_FEATURED_HANDLE{"\n"}
                 NEXT_PUBLIC_SITE_URL
               </code>
             </div>
@@ -66,9 +73,9 @@ function EmptyCatalogState() {
               Shopify is connected, but no product is available yet.
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-8 text-stone-700">
-              The homepage resolves the first available Shopify product handle and
-              renders it as the one-product storefront. Add a product in Shopify
-              and this page will update automatically.
+              The homepage resolves a featured Shopify product handle when one is
+              configured, otherwise it falls back to the first available product
+              automatically.
             </p>
           </div>
         </section>
@@ -84,7 +91,7 @@ export default async function Home() {
     return <SetupState />;
   }
 
-  const handle = await getFirstProductHandle();
+  const handle = getFeaturedHandle() ?? (await getFirstProductHandle());
 
   if (!handle) {
     return <EmptyCatalogState />;

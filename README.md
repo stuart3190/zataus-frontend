@@ -23,6 +23,7 @@ Create a `.env.local` file in the project root:
 SHOPIFY_STORE_DOMAIN=your-store.myshopify.com
 SHOPIFY_STOREFRONT_API_TOKEN=your-storefront-token
 SHOPIFY_API_VERSION=2025-01
+SHOPIFY_FEATURED_HANDLE=your-featured-product-handle
 NEXT_PUBLIC_SITE_URL=https://zataus.com
 ```
 
@@ -44,7 +45,7 @@ npm run start
 
 ## Shopify Integration
 
-- The homepage resolves the first available Shopify product handle and renders it as the storefront product.
+- The homepage loads `SHOPIFY_FEATURED_HANDLE` when it is set, and otherwise falls back to the first available Shopify product handle.
 - A dedicated handle route is also available at `/products/[handle]`.
 - Product data is fetched server-side through reusable Shopify utilities in `src/lib/shopify/`.
 - The Buy Now button sends the selected variant to Shopify cart using the store domain from environment configuration.
@@ -57,6 +58,8 @@ npm run start
   Storefront API access token used by the Next.js server to call Shopify.
 - `SHOPIFY_API_VERSION`
   Storefront API version, for example `2025-01`.
+- `SHOPIFY_FEATURED_HANDLE`
+  Optional Shopify product handle to force as the homepage product. If omitted, the homepage falls back to the first available product automatically.
 - `NEXT_PUBLIC_SITE_URL`
   Public site URL used for metadata and canonical base URL generation.
 
@@ -66,7 +69,7 @@ npm run start
 - Framework preset should remain `Next.js`.
 - Build command: `npm run build`
 - Output setting: default Next.js output
-- Add the four environment variables above in the Vercel project settings.
+- Add the environment variables above in the Vercel project settings.
 
 ## Project Structure
 
