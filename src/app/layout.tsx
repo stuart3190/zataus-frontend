@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Sans, Instrument_Serif } from "next/font/google";
+import { getSiteUrl } from "@/lib/site";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -13,16 +14,18 @@ const instrumentSerif = Instrument_Serif({
   weight: "400",
 });
 
+const siteUrl = getSiteUrl();
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://zataus.com"),
+  metadataBase: new URL(siteUrl),
   title: "Zataus",
   description:
-    "Zataus is a modern storefront built for a polished direct-to-consumer experience and future Shopify integration.",
+    "Zataus is a premium one-product storefront powered by Shopify Storefront API data.",
   openGraph: {
     title: "Zataus",
     description:
-      "A refined Next.js storefront starter for zataus.com with room to grow into a headless Shopify experience.",
-    url: "https://zataus.com",
+      "A refined Next.js storefront for zataus.com with live Shopify product data, premium presentation, and direct cart handoff.",
+    url: siteUrl,
     siteName: "Zataus",
     type: "website",
   },
@@ -30,7 +33,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Zataus",
     description:
-      "A refined Next.js storefront starter for zataus.com with room to grow into a headless Shopify experience.",
+      "A refined Next.js storefront for zataus.com with live Shopify product data and direct Shopify checkout flow.",
   },
 };
 

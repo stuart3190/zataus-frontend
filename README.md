@@ -1,13 +1,13 @@
 # Zataus Frontend
 
-Minimal Next.js storefront starter for `zataus.com`, built for immediate Vercel deployment and ready to expand into a headless Shopify frontend.
+Next.js App Router storefront for `zataus.com`, configured for Vercel and wired for a premium one-product Shopify Storefront API experience.
 
 ## Stack
 
-- Next.js with App Router
+- Next.js App Router
 - TypeScript
 - Tailwind CSS
-- Clean homepage starter with brand-first styling
+- Shopify Storefront API
 
 ## Install
 
@@ -16,6 +16,17 @@ npm install
 ```
 
 ## Run Locally
+
+Create a `.env.local` file in the project root:
+
+```bash
+SHOPIFY_STORE_DOMAIN=your-store.myshopify.com
+SHOPIFY_STOREFRONT_API_TOKEN=your-storefront-token
+SHOPIFY_API_VERSION=2025-01
+NEXT_PUBLIC_SITE_URL=https://zataus.com
+```
+
+Then start the dev server:
 
 ```bash
 npm run dev
@@ -26,28 +37,36 @@ Open `http://localhost:3000`.
 ## Production Build
 
 ```bash
+npm run lint
 npm run build
 npm run start
 ```
 
+## Shopify Integration
+
+- The homepage resolves the first available Shopify product handle and renders it as the storefront product.
+- A dedicated handle route is also available at `/products/[handle]`.
+- Product data is fetched server-side through reusable Shopify utilities in `src/lib/shopify/`.
+- The Buy Now button sends the selected variant to Shopify cart using the store domain from environment configuration.
+
+## Required Environment Variables
+
+- `SHOPIFY_STORE_DOMAIN`
+  Shopify store domain, usually `your-store.myshopify.com`.
+- `SHOPIFY_STOREFRONT_API_TOKEN`
+  Storefront API access token used by the Next.js server to call Shopify.
+- `SHOPIFY_API_VERSION`
+  Storefront API version, for example `2025-01`.
+- `NEXT_PUBLIC_SITE_URL`
+  Public site URL used for metadata and canonical base URL generation.
+
 ## Vercel Deploy Notes
 
 - Import the repository into Vercel.
-- Framework preset should detect as `Next.js`.
+- Framework preset should remain `Next.js`.
 - Build command: `npm run build`
 - Output setting: default Next.js output
-- No extra configuration is required for the current starter.
-
-## Future Shopify Environment Variables
-
-Create a `.env.local` file when Shopify integration is added:
-
-```bash
-NEXT_PUBLIC_SITE_URL=https://zataus.com
-SHOPIFY_STORE_DOMAIN=
-SHOPIFY_STOREFRONT_ACCESS_TOKEN=
-SHOPIFY_STOREFRONT_API_VERSION=
-```
+- Add the four environment variables above in the Vercel project settings.
 
 ## Project Structure
 
@@ -57,9 +76,12 @@ src/
     globals.css
     layout.tsx
     page.tsx
+    products/[handle]/page.tsx
+  components/
+    product-storefront.tsx
   lib/
+    site.ts
     shopify/
       client.ts
+      products.ts
 ```
-
-`src/lib/shopify/client.ts` is a small placeholder entry point for the Storefront API so product, collection, and cart work can be added without restructuring the app shell.
