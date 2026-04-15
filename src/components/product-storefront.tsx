@@ -25,27 +25,33 @@ type ParsedDescriptionSection = {
 };
 
 const quickBenefits = [
-  "Made for vans and cars",
-  "USB powered",
   "Helps catch dust and pollen",
+  "Designed for spring driving",
+  "Made for vans, cars, and small personal spaces",
 ];
 
 const practicalReasons: DetailItem[] = [
   {
-    title: "Spring driving feels closer in the cabin",
+    title: "Made for tighter cabin spaces",
     description:
-      "Dust and pollen can feel more noticeable when the space around the driver stays compact and enclosed.",
+      "A compact filter approach for vans, cars, and personal spaces where dust and pollen feel more noticeable.",
   },
   {
-    title: "Small enough for everyday placement",
+    title: "Simple everyday setup",
     description:
-      "Cabin Pollen Catcher is built for vans, cars, and other personal spaces where a full-size unit feels out of place.",
+      "USB power keeps it practical for regular driving instead of feeling like a complicated gadget.",
   },
   {
-    title: "Simple to power and use",
+    title: "A clearer path to checkout",
     description:
-      "USB power keeps the setup practical for regular driving instead of turning it into a technical install project.",
+      "One product, one main action, and a checkout flow that stays simple from product page to purchase.",
   },
+];
+
+const trustItems = [
+  "Secure checkout ready to go",
+  "One clear featured product",
+  "Built for everyday spring driving",
 ];
 
 const faqItems: DetailItem[] = [
@@ -170,27 +176,25 @@ export function ProductStorefront({
   const ctaHref = selectedVariant
     ? getVariantCartUrl(storeDomain, selectedVariant.id)
     : `https://${storeDomain}`;
-  const shortDescription = getShortDescription(product.description);
-  const ctaLabel = selectedVariant?.availableForSale
-    ? "BUY NOW"
-    : "Sold Out";
+  const ctaLabel = selectedVariant?.availableForSale ? "BUY NOW" : "SOLD OUT";
   const visiblePurchaseLabel = getVisiblePurchaseLabel();
+  const shortDescription = getShortDescription(product.description);
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[radial-gradient(circle_at_top_left,rgba(220,240,213,0.95),transparent_38%),radial-gradient(circle_at_top_right,rgba(252,247,192,0.9),transparent_34%),linear-gradient(180deg,#fbfcf8_0%,#f4f8ef_38%,#f7f5e9_100%)] text-slate-950">
+    <main className="relative min-h-screen overflow-hidden bg-[radial-gradient(circle_at_top_left,rgba(220,240,213,0.95),transparent_38%),radial-gradient(circle_at_top_right,rgba(252,247,192,0.88),transparent_34%),linear-gradient(180deg,#fbfcf8_0%,#f4f8ef_38%,#f7f5e9_100%)] text-slate-950">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-70"
       >
         <div className="absolute left-[-8%] top-8 h-[280px] w-[220px] rounded-full bg-[radial-gradient(circle,rgba(173,208,163,0.18)_0%,rgba(173,208,163,0)_72%)] blur-2xl sm:h-[360px] sm:w-[300px]" />
-        <div className="absolute right-[-6%] top-0 h-[320px] w-[260px] rounded-full bg-[radial-gradient(circle,rgba(250,237,170,0.26)_0%,rgba(250,237,170,0)_74%)] blur-3xl sm:h-[420px] sm:w-[340px]" />
+        <div className="absolute right-[-6%] top-0 h-[320px] w-[260px] rounded-full bg-[radial-gradient(circle,rgba(250,237,170,0.24)_0%,rgba(250,237,170,0)_74%)] blur-3xl sm:h-[420px] sm:w-[340px]" />
         <div className="absolute inset-x-0 top-[120px] h-[220px] bg-[radial-gradient(circle_at_20%_40%,rgba(118,154,101,0.09)_0%,rgba(118,154,101,0)_48%),radial-gradient(circle_at_72%_18%,rgba(195,214,145,0.1)_0%,rgba(195,214,145,0)_42%)] blur-3xl" />
         <div className="absolute left-[-20px] top-[90px] h-[240px] w-[180px] rotate-[-12deg] bg-[linear-gradient(180deg,rgba(98,128,80,0.12)_0%,rgba(98,128,80,0)_100%)] [clip-path:ellipse(35%_48%_at_50%_50%)] blur-xl sm:left-[20px] sm:h-[320px] sm:w-[220px]" />
         <div className="absolute left-[70px] top-[120px] h-[220px] w-[150px] rotate-[10deg] bg-[linear-gradient(180deg,rgba(116,151,96,0.08)_0%,rgba(116,151,96,0)_100%)] [clip-path:ellipse(30%_46%_at_50%_50%)] blur-xl sm:left-[140px] sm:h-[300px] sm:w-[180px]" />
         <div className="absolute right-[20px] top-[110px] h-[240px] w-[170px] rotate-[14deg] bg-[linear-gradient(180deg,rgba(144,171,111,0.08)_0%,rgba(144,171,111,0)_100%)] [clip-path:ellipse(32%_46%_at_50%_50%)] blur-xl sm:right-[90px] sm:h-[320px] sm:w-[210px]" />
       </div>
 
-      <div className="relative mx-auto flex min-h-screen w-full max-w-[1360px] flex-col px-4 pb-28 pt-4 sm:px-6 lg:px-8 lg:pb-16">
+      <div className="relative mx-auto flex min-h-screen w-full max-w-[1360px] flex-col px-4 pb-32 pt-4 sm:px-6 lg:px-8 lg:pb-16">
         <header className="flex items-center justify-between py-4 sm:py-5">
           <Link
             href="/"
@@ -221,15 +225,15 @@ export function ProductStorefront({
                     aria-hidden="true"
                     className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_20%_16%,rgba(255,255,255,0.42)_0%,rgba(255,255,255,0)_28%),linear-gradient(180deg,rgba(255,255,255,0.06)_0%,rgba(255,255,255,0)_32%,rgba(28,39,27,0.06)_100%)]"
                   />
-                {selectedImage ? (
-                  <Image
-                    src={selectedImage.url}
-                    alt={selectedImage.altText ?? product.title}
-                    fill
-                    priority
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 56vw"
-                  />
+                  {selectedImage ? (
+                    <Image
+                      src={selectedImage.url}
+                      alt={selectedImage.altText ?? product.title}
+                      fill
+                      priority
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 100vw, 56vw"
+                    />
                   ) : (
                     <div className="flex h-full items-center justify-center text-sm uppercase tracking-[0.24em] text-slate-500">
                       No product image
@@ -274,19 +278,15 @@ export function ProductStorefront({
 
               <p className="mt-4 max-w-[28rem] text-[15px] leading-7 text-slate-700 sm:text-lg sm:leading-8">
                 Designed for spring driving when dust and pollen feel heavier in
-                enclosed cabin spaces. Helps the cabin feel fresher and more
-                manageable.
+                enclosed cabin spaces. Helps the cabin feel fresher and easier to
+                live with.
               </p>
 
               <div className="mt-5 flex flex-wrap gap-2.5">
-                {[
-                  "Helps catch dust and pollen",
-                  "Designed for spring driving",
-                  "Made for vans, cars, and small personal spaces",
-                ].map((item) => (
+                {quickBenefits.map((item) => (
                   <span
                     key={item}
-                    className="rounded-full bg-white/70 px-3.5 py-2 text-sm font-medium text-slate-800 ring-1 ring-slate-200/70"
+                    className="rounded-full bg-white/72 px-3.5 py-2 text-sm font-medium text-slate-800 ring-1 ring-slate-200/70"
                   >
                     {item}
                   </span>
@@ -319,13 +319,20 @@ export function ProductStorefront({
                       : "pointer-events-none bg-slate-300 text-slate-500"
                   }`}
                 >
-                  <span className="relative z-10 text-white">
-                    {selectedVariant?.availableForSale ? "BUY NOW" : ctaLabel}
-                  </span>
+                  <span className="relative z-10 text-white">{ctaLabel}</span>
                 </a>
                 <p className="max-w-xs text-sm leading-6 text-slate-600">
                   Secure checkout ready to go.
                 </p>
+              </div>
+
+              <div className="mt-6 flex flex-wrap gap-4 text-sm text-slate-600">
+                {trustItems.map((item) => (
+                  <div key={item} className="flex items-center gap-2">
+                    <span className="text-emerald-500">•</span>
+                    <span>{item}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -453,7 +460,7 @@ export function ProductStorefront({
                 : "pointer-events-none bg-slate-300 text-slate-500"
             }`}
           >
-            <span className="relative z-10 text-white">BUY NOW</span>
+            <span className="relative z-10 text-white">{ctaLabel}</span>
           </a>
         </div>
       </div>
