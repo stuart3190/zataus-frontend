@@ -172,7 +172,7 @@ export function ProductStorefront({
     : `https://${storeDomain}`;
   const shortDescription = getShortDescription(product.description);
   const ctaLabel = selectedVariant?.availableForSale
-    ? "Buy Cabin Pollen Catcher"
+    ? "BUY NOW"
     : "Sold Out";
   const visiblePurchaseLabel = getVisiblePurchaseLabel();
 
@@ -320,11 +320,11 @@ export function ProductStorefront({
                   }`}
                 >
                   <span className="relative z-10 text-white">
-                    {selectedVariant?.availableForSale ? "Buy now" : ctaLabel}
+                    {selectedVariant?.availableForSale ? "BUY NOW" : ctaLabel}
                   </span>
                 </a>
                 <p className="max-w-xs text-sm leading-6 text-slate-600">
-                  Checkout opens on Shopify with the product ready to go.
+                  Secure checkout ready to go.
                 </p>
               </div>
             </div>
@@ -453,7 +453,7 @@ export function ProductStorefront({
                 : "pointer-events-none bg-slate-300 text-slate-500"
             }`}
           >
-            <span className="relative z-10 text-white">Buy now</span>
+            <span className="relative z-10 text-white">BUY NOW</span>
           </a>
         </div>
       </div>
