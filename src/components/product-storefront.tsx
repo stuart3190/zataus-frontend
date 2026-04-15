@@ -94,21 +94,8 @@ function getInitialVariant(
   return variants.find((variant) => variant.availableForSale) ?? variants[0];
 }
 
-function normalizeVariantTitle(title: string): string | null {
-  const normalized = title.trim().toLowerCase();
-
-  if (
-    !normalized ||
-    normalized === "default title" ||
-    normalized === "default" ||
-    normalized === "standard" ||
-    normalized === "single" ||
-    normalized === "1 pack"
-  ) {
-    return null;
-  }
-
-  return title.trim();
+function getVisiblePurchaseLabel(): string {
+  return "Cabin Pollen Catcher";
 }
 
 function getShortDescription(description: string): string {
@@ -165,7 +152,7 @@ export function ProductStorefront({
   storeDomain,
 }: ProductStorefrontProps) {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const [selectedVariantId, setSelectedVariantId] = useState(
+  const [selectedVariantId] = useState(
     getInitialVariant(product.variants)?.id ?? "",
   );
 
@@ -173,12 +160,6 @@ export function ProductStorefront({
     product.variants.find((variant) => variant.id === selectedVariantId) ??
     getInitialVariant(product.variants);
   const selectedImage = product.images[selectedImageIndex] ?? product.images[0];
-  const hasMultipleVariants =
-    product.variants.length > 1 ||
-    product.variants[0]?.title.toLowerCase() !== "default title";
-  const normalizedVariantTitle = selectedVariant
-    ? normalizeVariantTitle(selectedVariant.title)
-    : null;
   const compareAtPrice =
     selectedVariant?.compareAtPrice &&
     Number(selectedVariant.compareAtPrice.amount) >
@@ -193,6 +174,7 @@ export function ProductStorefront({
   const ctaLabel = selectedVariant?.availableForSale
     ? "Buy Cabin Pollen Catcher"
     : "Sold Out";
+  const visiblePurchaseLabel = getVisiblePurchaseLabel();
 
   return (
     <main className="min-h-screen bg-[radial-gradient(circle_at_top_left,rgba(220,240,213,0.95),transparent_38%),radial-gradient(circle_at_top_right,rgba(252,247,192,0.9),transparent_34%),linear-gradient(180deg,#fbfcf8_0%,#f4f8ef_38%,#f7f5e9_100%)] text-slate-950">
@@ -294,39 +276,9 @@ export function ProductStorefront({
                 ) : null}
               </div>
 
-              {hasMultipleVariants ? (
-                <div className="mt-5 flex flex-col gap-3">
-                  {product.variants.map((variant) => {
-                    const active = variant.id === selectedVariant?.id;
-                    const variantLabel =
-                      normalizeVariantTitle(variant.title) ?? "Cabin Pollen Catcher";
-
-                    return (
-                      <button
-                        key={variant.id}
-                        type="button"
-                        onClick={() => setSelectedVariantId(variant.id)}
-                        className={`flex items-center justify-between rounded-full px-4 py-3 text-left text-sm transition ${
-                          active
-                            ? "bg-slate-950 text-white"
-                            : "bg-white/80 text-slate-800 ring-1 ring-slate-200/80 hover:ring-slate-400"
-                        }`}
-                        >
-                          <span className="font-medium">{variantLabel}</span>
-                          <span className="opacity-80">
-                          {variant.availableForSale
-                            ? formatMoney(variant.price)
-                            : "Sold out"}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              ) : (
-                <p className="mt-4 text-sm font-medium text-slate-600">
-                  Compact USB cabin filter
-                </p>
-              )}
+              <p className="mt-4 text-sm font-medium text-slate-600">
+                {visiblePurchaseLabel}
+              </p>
 
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <a
