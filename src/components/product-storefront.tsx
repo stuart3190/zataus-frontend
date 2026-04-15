@@ -67,7 +67,7 @@ const faqItems: DetailItem[] = [
   {
     title: "Can it help during hay fever season?",
     description:
-      "It is designed for spring driving when dust and pollen can feel more noticeable in enclosed cabin spaces. It is not presented as a medical treatment.",
+      "It is designed for spring driving when dust and pollen can feel more noticeable in enclosed cabin spaces, helping the cabin feel fresher and easier to live with.",
   },
 ];
 
