@@ -26,7 +26,8 @@ type ParsedDescriptionSection = {
 
 type ProductFact = {
   label: string;
-  value: string;
+  value?: string;
+  bullets?: string[];
 };
 
 const quickBenefits = [
@@ -145,10 +146,8 @@ function parseDescription(description: string): ParsedDescriptionSection[] {
 }
 
 function buildProductFacts(
-  descriptionSections: ParsedDescriptionSection[],
+  _descriptionSections: ParsedDescriptionSection[],
 ): ProductFact[] {
-  const descriptionBullets = descriptionSections.flatMap((section) => section.bullets);
-
   return [
     {
       label: "Made for",
@@ -164,9 +163,11 @@ function buildProductFacts(
     },
     {
       label: "Benefit",
-      value:
-        descriptionBullets[0] ??
+      bullets: [
         "Helps catch dust and pollen in enclosed cabin spaces",
+        "Designed for spring driving and daily commuting",
+        "USB powered and compact, making it easy to use in vans and cars",
+      ],
     },
   ];
 }
@@ -405,40 +406,27 @@ export function ProductStorefront({
                   <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-slate-500">
                     {fact.label}
                   </p>
-                  <p className="mt-2 text-sm leading-7 text-slate-700 sm:text-base">
-                    {fact.value}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            {descriptionSections.length > 0 ? (
-              <div className="mt-6 grid gap-4">
-                {descriptionSections.map((section, index) => (
-                  <div
-                    key={`${section.title ?? "section"}-${index}`}
-                    className="rounded-[1.2rem] bg-white/55 px-4 py-4 ring-1 ring-slate-200/60 sm:px-5"
-                  >
-                    {section.title ? (
-                      <h3 className="text-base font-semibold text-slate-950">
-                        {section.title}
-                      </h3>
-                    ) : null}
-                    <ul className="mt-3 grid gap-2.5">
-                      {section.bullets.slice(0, 4).map((bullet) => (
+                  {fact.value ? (
+                    <p className="mt-2 text-sm leading-7 text-slate-700 sm:text-base">
+                      {fact.value}
+                    </p>
+                  ) : null}
+                  {fact.bullets ? (
+                    <ul className="mt-2 grid gap-2">
+                      {fact.bullets.map((bullet) => (
                         <li
                           key={bullet}
-                          className="flex gap-3 text-[15px] leading-7 text-slate-700 sm:text-base"
+                          className="flex gap-3 text-sm leading-7 text-slate-700 sm:text-base"
                         >
                           <span className="pt-1 text-emerald-500">•</span>
                           <span>{bullet}</span>
                         </li>
                       ))}
                     </ul>
-                  </div>
-                ))}
-              </div>
-            ) : null}
+                  ) : null}
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="rounded-[2rem] bg-white/58 p-5 shadow-[0_24px_70px_-42px_rgba(40,60,34,0.25)] ring-1 ring-slate-200/60 backdrop-blur sm:p-6">
