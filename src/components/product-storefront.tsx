@@ -55,9 +55,9 @@ const faqItems: DetailItem[] = [
       "Cabin Pollen Catcher is a compact USB cabin filter for vans, cars, and other small personal spaces.",
   },
   {
-    title: "Is it only for vans?",
+    title: "Will it fit in a van or car?",
     description:
-      "No. It is designed for vans, cars, and similarly small spaces where a compact filter setup makes sense.",
+      "It is designed for vans, cars, and similarly small cabin spaces where a compact filter setup makes sense for everyday use.",
   },
   {
     title: "How is it powered?",
@@ -65,14 +65,9 @@ const faqItems: DetailItem[] = [
       "It uses USB power, which keeps it simple for daily use inside the vehicle or another compact setup.",
   },
   {
-    title: "What size is it?",
+    title: "Can it help during hay fever season?",
     description:
-      "It is intended as a compact cabin product rather than a large device for full-room coverage.",
-  },
-  {
-    title: "Does it cure hay fever?",
-    description:
-      "No. It is not a treatment or medical device and is not presented as curing hay fever or any other condition.",
+      "It is designed for spring driving when dust and pollen can feel more noticeable in enclosed cabin spaces. It is not presented as a medical treatment.",
   },
 ];
 
@@ -209,9 +204,6 @@ export function ProductStorefront({
           >
             Zataus
           </Link>
-          <div className="rounded-full border border-slate-200/70 bg-white/70 px-3 py-2 text-[10px] font-medium uppercase tracking-[0.22em] text-slate-500 backdrop-blur sm:px-4 sm:text-[11px]">
-            Cabin Pollen Catcher
-          </div>
         </header>
 
         <section className="grid gap-6 py-3 sm:gap-8 sm:py-6 lg:grid-cols-[minmax(0,1.08fr)_minmax(380px,0.92fr)] lg:items-center lg:gap-10 lg:py-10">
@@ -264,16 +256,7 @@ export function ProductStorefront({
 
           <div className="order-1 lg:order-2">
             <div className="max-w-[34rem]">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="rounded-full bg-slate-950 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.24em] text-white">
-                  Spring driving
-                </span>
-                <span className="rounded-full bg-white/75 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.24em] text-slate-700 ring-1 ring-slate-200/70">
-                  USB cabin filter
-                </span>
-              </div>
-
-              <h1 className="mt-5 max-w-[12ch] font-[family-name:var(--font-display)] text-[2.9rem] leading-[0.9] text-slate-950 sm:text-[3.8rem] lg:text-[4.7rem]">
+              <h1 className="max-w-[12ch] font-[family-name:var(--font-display)] text-[2.9rem] leading-[0.9] text-slate-950 sm:text-[3.8rem] lg:text-[4.7rem]">
                 {product.title}
               </h1>
 
