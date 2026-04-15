@@ -47,11 +47,6 @@ const practicalReasons: DetailItem[] = [
     description:
       "USB power keeps the setup practical for daily driving and commuting.",
   },
-  {
-    title: "A cleaner path to purchase",
-    description:
-      "One product, one main action, and a straightforward checkout flow.",
-  },
 ];
 
 const trustItems = [
@@ -370,7 +365,7 @@ export function ProductStorefront({
               A clearer fit for daily driving.
             </h2>
           </div>
-          <div className="grid gap-6 sm:grid-cols-3 sm:gap-5">
+          <div className="grid gap-6 sm:grid-cols-2 sm:gap-5 lg:max-w-3xl">
             {practicalReasons.map((item) => (
               <div key={item.title}>
                 <p className="text-base font-semibold text-slate-950">
