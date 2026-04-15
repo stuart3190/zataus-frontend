@@ -1,13 +1,84 @@
+import type { Metadata } from "next";
 import { ProductStorefront } from "@/components/product-storefront";
+import { getSiteUrl } from "@/lib/site";
 import { getShopifyConfig } from "@/lib/shopify/client";
 import { getFirstProductHandle, getProductByHandle } from "@/lib/shopify/products";
 
 export const revalidate = 300;
 
+const SEO_TITLE = "Cabin Pollen Catcher | Zataus";
+const SEO_DESCRIPTION =
+  "Cabin Pollen Catcher is a compact USB cabin filter for vans, cars, and small cabin spaces, designed for spring driving when dust and pollen feel heavier in enclosed spaces.";
+const SEO_OG_DESCRIPTION =
+  "Compact USB cabin filter for vans, cars, and small cabin spaces. Built for spring driving and a fresher-feeling cabin.";
+
 function getFeaturedHandle(): string | null {
   const handle = process.env.SHOPIFY_FEATURED_HANDLE?.trim();
 
   return handle ? handle : null;
+}
+
+async function getHomepageProduct() {
+  const config = getShopifyConfig();
+
+  if (!config) {
+    return {
+      config: null,
+      product: null,
+    };
+  }
+
+  const handle = getFeaturedHandle() ?? (await getFirstProductHandle());
+
+  if (!handle) {
+    return {
+      config,
+      product: null,
+    };
+  }
+
+  const product = await getProductByHandle(handle);
+
+  return {
+    config,
+    product,
+  };
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const siteUrl = getSiteUrl();
+  const canonicalUrl = `${siteUrl}/`;
+  const { product } = await getHomepageProduct();
+  const imageUrl = product?.images[0]?.url;
+
+  return {
+    title: SEO_TITLE,
+    description: SEO_DESCRIPTION,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: SEO_TITLE,
+      description: SEO_OG_DESCRIPTION,
+      url: canonicalUrl,
+      siteName: "Zataus",
+      type: "website",
+      images: imageUrl
+        ? [
+            {
+              url: imageUrl,
+              alt: "Cabin Pollen Catcher",
+            },
+          ]
+        : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: SEO_TITLE,
+      description: SEO_OG_DESCRIPTION,
+      images: imageUrl ? [imageUrl] : undefined,
+    },
+  };
 }
 
 function SetupState() {
@@ -85,23 +156,52 @@ function EmptyCatalogState() {
 }
 
 export default async function Home() {
-  const config = getShopifyConfig();
+  const siteUrl = getSiteUrl();
+  const canonicalUrl = `${siteUrl}/`;
+  const { config, product } = await getHomepageProduct();
 
   if (!config) {
     return <SetupState />;
   }
 
-  const handle = getFeaturedHandle() ?? (await getFirstProductHandle());
-
-  if (!handle) {
-    return <EmptyCatalogState />;
-  }
-
-  const product = await getProductByHandle(handle);
-
   if (!product) {
     return <EmptyCatalogState />;
   }
 
-  return <ProductStorefront product={product} storeDomain={config.storeDomain} />;
+  const primaryVariant =
+    product.variants.find((variant) => variant.availableForSale) ?? product.variants[0];
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.title,
+    description: SEO_DESCRIPTION,
+    image: product.images[0]?.url,
+    brand: {
+      "@type": "Brand",
+      name: "Zataus",
+    },
+    offers: primaryVariant
+      ? {
+          "@type": "Offer",
+          url: canonicalUrl,
+          priceCurrency: primaryVariant.price.currencyCode || "GBP",
+          price: primaryVariant.price.amount,
+          availability: primaryVariant.availableForSale
+            ? "https://schema.org/InStock"
+            : "https://schema.org/OutOfStock",
+        }
+      : undefined,
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(schema),
+        }}
+      />
+      <ProductStorefront product={product} storeDomain={config.storeDomain} />
+    </>
+  );
 }
