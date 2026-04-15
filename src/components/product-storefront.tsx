@@ -24,51 +24,55 @@ type ParsedDescriptionSection = {
   bullets: string[];
 };
 
+type ProductFact = {
+  label: string;
+  value: string;
+};
+
 const quickBenefits = [
-  "Helps catch dust and pollen",
-  "Designed for spring driving",
-  "Made for vans, cars, and small personal spaces",
+  "Cabin-focused",
+  "USB powered",
+  "Dust and pollen capture",
 ];
 
 const practicalReasons: DetailItem[] = [
   {
     title: "Made for tighter cabin spaces",
     description:
-      "A compact filter approach for vans, cars, and personal spaces where dust and pollen feel more noticeable.",
+      "Built for vans, cars, and other everyday spaces where the air around the driver feels closer.",
   },
   {
-    title: "Simple everyday setup",
+    title: "Simple to plug in and use",
     description:
-      "USB power keeps it practical for regular driving instead of feeling like a complicated gadget.",
+      "USB power keeps the setup practical for daily driving and commuting.",
   },
   {
-    title: "A clearer path to checkout",
+    title: "A cleaner path to purchase",
     description:
-      "One product, one main action, and a checkout flow that stays simple from product page to purchase.",
+      "One product, one main action, and a straightforward checkout flow.",
   },
 ];
 
 const trustItems = [
   "Secure checkout ready to go",
   "One clear featured product",
-  "Built for everyday spring driving",
+  "Designed for everyday driving",
 ];
 
 const faqItems: DetailItem[] = [
   {
     title: "What is it for?",
     description:
-      "Cabin Pollen Catcher is a compact USB cabin filter for vans, cars, and other small personal spaces.",
+      "A compact USB cabin filter for vans, cars, and other small personal spaces.",
   },
   {
     title: "Will it fit in a van or car?",
     description:
-      "It is designed for vans, cars, and similarly small cabin spaces where a compact filter setup makes sense for everyday use.",
+      "Yes. It is designed for vans, cars, and similarly compact cabin spaces.",
   },
   {
     title: "How is it powered?",
-    description:
-      "It uses USB power, which keeps it simple for daily use inside the vehicle or another compact setup.",
+    description: "It uses a simple USB connection for everyday use.",
   },
   {
     title: "Can it help during hay fever season?",
@@ -102,19 +106,6 @@ function getInitialVariant(
 
 function getVisiblePurchaseLabel(): string {
   return "Cabin Pollen Catcher";
-}
-
-function getShortDescription(description: string): string {
-  const firstLine = description
-    .split(/\n+/)
-    .map((line) => line.replace(/^[-*•]\s*/, "").trim())
-    .find(Boolean);
-
-  if (!firstLine) {
-    return "Designed for spring driving in vans, cars, and other small personal spaces.";
-  }
-
-  return firstLine;
 }
 
 function parseDescription(description: string): ParsedDescriptionSection[] {
@@ -153,6 +144,33 @@ function parseDescription(description: string): ParsedDescriptionSection[] {
     .filter((section) => section.bullets.length > 0);
 }
 
+function buildProductFacts(
+  descriptionSections: ParsedDescriptionSection[],
+): ProductFact[] {
+  const descriptionBullets = descriptionSections.flatMap((section) => section.bullets);
+
+  return [
+    {
+      label: "Made for",
+      value: "Vans, cars, and compact personal spaces",
+    },
+    {
+      label: "Power",
+      value: "Simple USB connection",
+    },
+    {
+      label: "Use case",
+      value: "Spring driving and daily commuting",
+    },
+    {
+      label: "Benefit",
+      value:
+        descriptionBullets[0] ??
+        "Helps catch dust and pollen in enclosed cabin spaces",
+    },
+  ];
+}
+
 export function ProductStorefront({
   product,
   storeDomain,
@@ -173,12 +191,12 @@ export function ProductStorefront({
       ? selectedVariant.compareAtPrice
       : null;
   const descriptionSections = parseDescription(product.description);
+  const productFacts = buildProductFacts(descriptionSections);
   const ctaHref = selectedVariant
     ? getVariantCartUrl(storeDomain, selectedVariant.id)
     : `https://${storeDomain}`;
   const ctaLabel = selectedVariant?.availableForSale ? "BUY NOW" : "SOLD OUT";
   const visiblePurchaseLabel = getVisiblePurchaseLabel();
-  const shortDescription = getShortDescription(product.description);
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[radial-gradient(circle_at_top_left,rgba(220,240,213,0.95),transparent_38%),radial-gradient(circle_at_top_right,rgba(252,247,192,0.88),transparent_34%),linear-gradient(180deg,#fbfcf8_0%,#f4f8ef_38%,#f7f5e9_100%)] text-slate-950">
@@ -276,7 +294,7 @@ export function ProductStorefront({
                 {product.title}
               </h1>
 
-              <p className="mt-4 max-w-[28rem] text-[15px] leading-7 text-slate-700 sm:text-lg sm:leading-8">
+              <p className="mt-4 max-w-[27rem] text-[15px] leading-7 text-slate-700 sm:text-lg sm:leading-8">
                 Designed for spring driving when dust and pollen feel heavier in
                 enclosed cabin spaces. Helps the cabin feel fresher and easier to
                 live with.
@@ -348,7 +366,7 @@ export function ProductStorefront({
               Why Drivers Like It
             </p>
             <h2 className="mt-3 max-w-[12ch] font-[family-name:var(--font-display)] text-[2.1rem] leading-[0.95] text-slate-950 sm:text-[2.8rem]">
-              Cleaner, calmer, and easier to live with in the cabin.
+              A clearer fit for daily driving.
             </h2>
           </div>
           <div className="grid gap-6 sm:grid-cols-3 sm:gap-5">
@@ -375,23 +393,39 @@ export function ProductStorefront({
               Product Details
             </p>
             <h2 className="mt-3 max-w-[12ch] font-[family-name:var(--font-display)] text-[2.1rem] leading-[0.95] text-slate-950 sm:text-[2.8rem]">
-              Quick product details.
+              Practical details at a glance.
             </h2>
 
-            <div className="mt-6 grid gap-6">
-              {descriptionSections.length > 0 ? (
-                descriptionSections.map((section, index) => (
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              {productFacts.map((fact) => (
+                <div
+                  key={fact.label}
+                  className="rounded-[1.2rem] bg-white/55 px-4 py-4 ring-1 ring-slate-200/60 sm:px-5"
+                >
+                  <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-slate-500">
+                    {fact.label}
+                  </p>
+                  <p className="mt-2 text-sm leading-7 text-slate-700 sm:text-base">
+                    {fact.value}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {descriptionSections.length > 0 ? (
+              <div className="mt-6 grid gap-4">
+                {descriptionSections.map((section, index) => (
                   <div
                     key={`${section.title ?? "section"}-${index}`}
                     className="rounded-[1.2rem] bg-white/55 px-4 py-4 ring-1 ring-slate-200/60 sm:px-5"
                   >
                     {section.title ? (
-                      <h3 className="text-lg font-semibold text-slate-950">
+                      <h3 className="text-base font-semibold text-slate-950">
                         {section.title}
                       </h3>
                     ) : null}
                     <ul className="mt-3 grid gap-2.5">
-                      {section.bullets.map((bullet) => (
+                      {section.bullets.slice(0, 4).map((bullet) => (
                         <li
                           key={bullet}
                           className="flex gap-3 text-[15px] leading-7 text-slate-700 sm:text-base"
@@ -402,16 +436,9 @@ export function ProductStorefront({
                       ))}
                     </ul>
                   </div>
-                ))
-              ) : (
-                <ul className="grid gap-3 rounded-[1.2rem] bg-white/55 px-4 py-4 ring-1 ring-slate-200/60 sm:px-5">
-                  <li className="flex gap-3 text-[15px] leading-7 text-slate-700 sm:text-base">
-                    <span className="pt-1 text-emerald-500">•</span>
-                    <span>{product.description}</span>
-                  </li>
-                </ul>
-              )}
-            </div>
+                ))}
+              </div>
+            ) : null}
           </div>
 
           <div className="rounded-[2rem] bg-white/58 p-5 shadow-[0_24px_70px_-42px_rgba(40,60,34,0.25)] ring-1 ring-slate-200/60 backdrop-blur sm:p-6">
@@ -454,7 +481,7 @@ export function ProductStorefront({
           </div>
           <a
             href={ctaHref}
-            className={`relative z-20 inline-flex min-h-11 shrink-0 items-center justify-center rounded-full px-5 py-3 text-[13px] font-semibold uppercase tracking-[0.16em] no-underline transition ${
+            className={`relative z-20 inline-flex min-h-10 shrink-0 items-center justify-center rounded-full px-5 py-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] no-underline transition ${
               selectedVariant?.availableForSale
                 ? "bg-slate-950 text-white"
                 : "pointer-events-none bg-slate-300 text-slate-500"
