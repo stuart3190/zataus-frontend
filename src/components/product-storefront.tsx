@@ -177,8 +177,20 @@ export function ProductStorefront({
   const visiblePurchaseLabel = getVisiblePurchaseLabel();
 
   return (
-    <main className="min-h-screen bg-[radial-gradient(circle_at_top_left,rgba(220,240,213,0.95),transparent_38%),radial-gradient(circle_at_top_right,rgba(252,247,192,0.9),transparent_34%),linear-gradient(180deg,#fbfcf8_0%,#f4f8ef_38%,#f7f5e9_100%)] text-slate-950">
-      <div className="mx-auto flex min-h-screen w-full max-w-[1360px] flex-col px-4 pb-28 pt-4 sm:px-6 lg:px-8 lg:pb-16">
+    <main className="relative min-h-screen overflow-hidden bg-[radial-gradient(circle_at_top_left,rgba(220,240,213,0.95),transparent_38%),radial-gradient(circle_at_top_right,rgba(252,247,192,0.9),transparent_34%),linear-gradient(180deg,#fbfcf8_0%,#f4f8ef_38%,#f7f5e9_100%)] text-slate-950">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-70"
+      >
+        <div className="absolute left-[-8%] top-8 h-[280px] w-[220px] rounded-full bg-[radial-gradient(circle,rgba(173,208,163,0.18)_0%,rgba(173,208,163,0)_72%)] blur-2xl sm:h-[360px] sm:w-[300px]" />
+        <div className="absolute right-[-6%] top-0 h-[320px] w-[260px] rounded-full bg-[radial-gradient(circle,rgba(250,237,170,0.26)_0%,rgba(250,237,170,0)_74%)] blur-3xl sm:h-[420px] sm:w-[340px]" />
+        <div className="absolute inset-x-0 top-[120px] h-[220px] bg-[radial-gradient(circle_at_20%_40%,rgba(118,154,101,0.09)_0%,rgba(118,154,101,0)_48%),radial-gradient(circle_at_72%_18%,rgba(195,214,145,0.1)_0%,rgba(195,214,145,0)_42%)] blur-3xl" />
+        <div className="absolute left-[-20px] top-[90px] h-[240px] w-[180px] rotate-[-12deg] bg-[linear-gradient(180deg,rgba(98,128,80,0.12)_0%,rgba(98,128,80,0)_100%)] [clip-path:ellipse(35%_48%_at_50%_50%)] blur-xl sm:left-[20px] sm:h-[320px] sm:w-[220px]" />
+        <div className="absolute left-[70px] top-[120px] h-[220px] w-[150px] rotate-[10deg] bg-[linear-gradient(180deg,rgba(116,151,96,0.08)_0%,rgba(116,151,96,0)_100%)] [clip-path:ellipse(30%_46%_at_50%_50%)] blur-xl sm:left-[140px] sm:h-[300px] sm:w-[180px]" />
+        <div className="absolute right-[20px] top-[110px] h-[240px] w-[170px] rotate-[14deg] bg-[linear-gradient(180deg,rgba(144,171,111,0.08)_0%,rgba(144,171,111,0)_100%)] [clip-path:ellipse(32%_46%_at_50%_50%)] blur-xl sm:right-[90px] sm:h-[320px] sm:w-[210px]" />
+      </div>
+
+      <div className="relative mx-auto flex min-h-screen w-full max-w-[1360px] flex-col px-4 pb-28 pt-4 sm:px-6 lg:px-8 lg:pb-16">
         <header className="flex items-center justify-between py-4 sm:py-5">
           <Link
             href="/"
@@ -190,8 +202,25 @@ export function ProductStorefront({
 
         <section className="grid gap-6 py-3 sm:gap-8 sm:py-6 lg:grid-cols-[minmax(0,1.08fr)_minmax(380px,0.92fr)] lg:items-center lg:gap-10 lg:py-10">
           <div className="order-2 lg:order-1">
-            <div className="overflow-hidden rounded-[2rem] bg-white/65 p-2 shadow-[0_24px_70px_-42px_rgba(38,52,33,0.28)] ring-1 ring-slate-200/60 backdrop-blur sm:rounded-[2.25rem] sm:p-3">
-              <div className="relative aspect-[1/1.02] overflow-hidden rounded-[1.5rem] bg-[#edf4e7] sm:rounded-[1.8rem]">
+            <div className="relative">
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-[-8%] -z-10 bg-[radial-gradient(circle_at_50%_48%,rgba(244,242,171,0.48)_0%,rgba(207,232,194,0.34)_34%,rgba(207,232,194,0)_68%)] blur-3xl"
+              />
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute left-[6%] top-[8%] z-10 h-[42%] w-[18%] rotate-[-14deg] bg-[linear-gradient(180deg,rgba(117,152,94,0.14)_0%,rgba(117,152,94,0)_100%)] [clip-path:ellipse(34%_48%_at_50%_50%)] blur-xl"
+              />
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute right-[8%] top-[14%] z-10 h-[36%] w-[15%] rotate-[12deg] bg-[linear-gradient(180deg,rgba(131,166,108,0.1)_0%,rgba(131,166,108,0)_100%)] [clip-path:ellipse(34%_48%_at_50%_50%)] blur-xl"
+              />
+              <div className="overflow-hidden rounded-[2rem] bg-white/62 p-2 shadow-[0_26px_80px_-42px_rgba(38,52,33,0.3)] ring-1 ring-slate-200/60 backdrop-blur sm:rounded-[2.25rem] sm:p-3">
+                <div className="relative aspect-[1/1.02] overflow-hidden rounded-[1.5rem] bg-[linear-gradient(180deg,#eef6e8_0%,#eaf2de_100%)] sm:rounded-[1.8rem]">
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_20%_16%,rgba(255,255,255,0.42)_0%,rgba(255,255,255,0)_28%),linear-gradient(180deg,rgba(255,255,255,0.06)_0%,rgba(255,255,255,0)_32%,rgba(28,39,27,0.06)_100%)]"
+                  />
                 {selectedImage ? (
                   <Image
                     src={selectedImage.url}
@@ -201,11 +230,12 @@ export function ProductStorefront({
                     className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 56vw"
                   />
-                ) : (
-                  <div className="flex h-full items-center justify-center text-sm uppercase tracking-[0.24em] text-slate-500">
-                    No product image
-                  </div>
-                )}
+                  ) : (
+                    <div className="flex h-full items-center justify-center text-sm uppercase tracking-[0.24em] text-slate-500">
+                      No product image
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -216,7 +246,7 @@ export function ProductStorefront({
                     key={image.id}
                     type="button"
                     onClick={() => setSelectedImageIndex(index)}
-                    className={`relative h-18 min-w-[4.6rem] overflow-hidden rounded-[0.95rem] border bg-white/80 transition sm:h-22 sm:min-w-[5.6rem] ${
+                    className={`relative h-18 min-w-[4.6rem] overflow-hidden rounded-[0.95rem] border bg-white/78 transition sm:h-22 sm:min-w-[5.6rem] ${
                       index === selectedImageIndex
                         ? "border-slate-950 shadow-[0_14px_28px_-20px_rgba(15,23,42,0.35)]"
                         : "border-slate-200/80 hover:border-slate-400"
@@ -299,7 +329,11 @@ export function ProductStorefront({
           </div>
         </section>
 
-        <section className="grid gap-8 py-10 sm:py-12 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] lg:gap-14">
+        <section className="relative grid gap-8 py-10 sm:py-12 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] lg:gap-14">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 -top-6 h-16 bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.24)_100%)]"
+          />
           <div>
             <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-slate-500">
               Why Drivers Like It
@@ -322,7 +356,11 @@ export function ProductStorefront({
           </div>
         </section>
 
-        <section className="grid gap-10 py-10 sm:py-12 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.82fr)] lg:items-start lg:gap-14">
+        <section className="relative grid gap-10 py-10 sm:py-12 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.82fr)] lg:items-start lg:gap-14">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute left-0 right-0 top-0 h-px bg-[linear-gradient(90deg,rgba(148,163,184,0)_0%,rgba(148,163,184,0.28)_18%,rgba(148,163,184,0.28)_82%,rgba(148,163,184,0)_100%)]"
+          />
           <div>
             <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-slate-500">
               Product Details
@@ -367,7 +405,7 @@ export function ProductStorefront({
             </div>
           </div>
 
-          <div className="rounded-[2rem] bg-white/62 p-5 shadow-[0_24px_70px_-42px_rgba(40,60,34,0.25)] ring-1 ring-slate-200/60 backdrop-blur sm:p-6">
+          <div className="rounded-[2rem] bg-white/58 p-5 shadow-[0_24px_70px_-42px_rgba(40,60,34,0.25)] ring-1 ring-slate-200/60 backdrop-blur sm:p-6">
             <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-slate-500">
               FAQ
             </p>
