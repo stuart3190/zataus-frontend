@@ -313,13 +313,15 @@ export function ProductStorefront({
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <a
                   href={ctaHref}
-                  className={`inline-flex min-h-13 items-center justify-center rounded-full px-7 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] transition sm:min-w-[260px] ${
+                  className={`relative z-20 inline-flex min-h-13 items-center justify-center rounded-full px-7 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] no-underline transition sm:min-w-[260px] ${
                     selectedVariant?.availableForSale
                       ? "bg-slate-950 text-white shadow-[0_20px_40px_-18px_rgba(15,23,42,0.45)] hover:bg-slate-800"
                       : "pointer-events-none bg-slate-300 text-slate-500"
                   }`}
                 >
-                  {ctaLabel}
+                  <span className="relative z-10 text-white">
+                    {selectedVariant?.availableForSale ? "Buy now" : ctaLabel}
+                  </span>
                 </a>
                 <p className="max-w-xs text-sm leading-6 text-slate-600">
                   Checkout opens on Shopify with the product ready to go.
@@ -445,13 +447,13 @@ export function ProductStorefront({
           </div>
           <a
             href={ctaHref}
-            className={`inline-flex min-h-11 shrink-0 items-center justify-center rounded-full px-5 py-3 text-[13px] font-semibold uppercase tracking-[0.16em] transition ${
+            className={`relative z-20 inline-flex min-h-11 shrink-0 items-center justify-center rounded-full px-5 py-3 text-[13px] font-semibold uppercase tracking-[0.16em] no-underline transition ${
               selectedVariant?.availableForSale
                 ? "bg-slate-950 text-white"
                 : "pointer-events-none bg-slate-300 text-slate-500"
             }`}
           >
-            Buy Now
+            <span className="relative z-10 text-white">Buy now</span>
           </a>
         </div>
       </div>
