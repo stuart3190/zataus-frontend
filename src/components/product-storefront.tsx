@@ -123,7 +123,7 @@ function getShortDescription(description: string): string {
     .find(Boolean);
 
   if (!firstLine) {
-    return "A compact USB cabin filter for spring driving and everyday use.";
+    return "Designed for spring driving in vans, cars, and other small personal spaces.";
   }
 
   return firstLine;
@@ -195,6 +195,9 @@ export function ProductStorefront({
     ? getVariantCartUrl(storeDomain, selectedVariant.id)
     : `https://${storeDomain}`;
   const shortDescription = getShortDescription(product.description);
+  const ctaLabel = selectedVariant?.availableForSale
+    ? "Buy Cabin Pollen Catcher"
+    : "Sold Out";
 
   return (
     <main className="min-h-screen bg-[radial-gradient(circle_at_top_left,rgba(220,240,213,0.95),transparent_38%),radial-gradient(circle_at_top_right,rgba(252,247,192,0.9),transparent_34%),linear-gradient(180deg,#fbfcf8_0%,#f4f8ef_38%,#f7f5e9_100%)] text-slate-950">
@@ -274,13 +277,18 @@ export function ProductStorefront({
                 {product.title}
               </h1>
 
-              <p className="mt-4 max-w-[31rem] text-[15px] leading-7 text-slate-700 sm:text-lg sm:leading-8">
-                Hay fever can feel worse in the van or car when spring dust and
-                pollen stay trapped in a tighter cabin. {shortDescription}
+              <p className="mt-4 max-w-[28rem] text-[15px] leading-7 text-slate-700 sm:text-lg sm:leading-8">
+                Designed for spring driving when dust and pollen feel heavier in
+                enclosed cabin spaces. Helps the cabin feel fresher and more
+                manageable.
               </p>
 
               <div className="mt-5 flex flex-wrap gap-2.5">
-                {quickBenefits.map((item) => (
+                {[
+                  "Helps catch dust and pollen",
+                  "Designed for spring driving",
+                  "Made for vans, cars, and small personal spaces",
+                ].map((item) => (
                   <span
                     key={item}
                     className="rounded-full bg-white/70 px-3.5 py-2 text-sm font-medium text-slate-800 ring-1 ring-slate-200/70"
@@ -308,7 +316,7 @@ export function ProductStorefront({
                   {product.variants.map((variant) => {
                     const active = variant.id === selectedVariant?.id;
                     const variantLabel =
-                      normalizeVariantTitle(variant.title) ?? variant.title;
+                      normalizeVariantTitle(variant.title) ?? "Cabin Pollen Catcher";
 
                     return (
                       <button
@@ -320,9 +328,9 @@ export function ProductStorefront({
                             ? "bg-slate-950 text-white"
                             : "bg-white/80 text-slate-800 ring-1 ring-slate-200/80 hover:ring-slate-400"
                         }`}
-                      >
-                        <span className="font-medium">{variantLabel}</span>
-                        <span className="opacity-80">
+                        >
+                          <span className="font-medium">{variantLabel}</span>
+                          <span className="opacity-80">
                           {variant.availableForSale
                             ? formatMoney(variant.price)
                             : "Sold out"}
@@ -331,11 +339,11 @@ export function ProductStorefront({
                     );
                   })}
                 </div>
-              ) : normalizedVariantTitle ? (
+              ) : (
                 <p className="mt-4 text-sm font-medium text-slate-600">
-                  {normalizedVariantTitle}
+                  Compact USB cabin filter
                 </p>
-              ) : null}
+              )}
 
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <a
@@ -346,10 +354,10 @@ export function ProductStorefront({
                       : "pointer-events-none bg-slate-300 text-slate-500"
                   }`}
                 >
-                  {selectedVariant?.availableForSale ? "Buy Now" : "Sold Out"}
+                  {ctaLabel}
                 </a>
                 <p className="max-w-xs text-sm leading-6 text-slate-600">
-                  Move to Shopify checkout with the selected product ready to go.
+                  Checkout opens on Shopify with the product ready to go.
                 </p>
               </div>
             </div>
@@ -385,19 +393,22 @@ export function ProductStorefront({
               Product Details
             </p>
             <h2 className="mt-3 max-w-[12ch] font-[family-name:var(--font-display)] text-[2.1rem] leading-[0.95] text-slate-950 sm:text-[2.8rem]">
-              Practical details without the paragraph wall.
+              Quick product details.
             </h2>
 
-            <div className="mt-6 space-y-7">
+            <div className="mt-6 grid gap-6">
               {descriptionSections.length > 0 ? (
                 descriptionSections.map((section, index) => (
-                  <div key={`${section.title ?? "section"}-${index}`}>
+                  <div
+                    key={`${section.title ?? "section"}-${index}`}
+                    className="rounded-[1.2rem] bg-white/55 px-4 py-4 ring-1 ring-slate-200/60 sm:px-5"
+                  >
                     {section.title ? (
                       <h3 className="text-lg font-semibold text-slate-950">
                         {section.title}
                       </h3>
                     ) : null}
-                    <ul className="mt-3 grid gap-3">
+                    <ul className="mt-3 grid gap-2.5">
                       {section.bullets.map((bullet) => (
                         <li
                           key={bullet}
@@ -411,7 +422,7 @@ export function ProductStorefront({
                   </div>
                 ))
               ) : (
-                <ul className="grid gap-3">
+                <ul className="grid gap-3 rounded-[1.2rem] bg-white/55 px-4 py-4 ring-1 ring-slate-200/60 sm:px-5">
                   <li className="flex gap-3 text-[15px] leading-7 text-slate-700 sm:text-base">
                     <span className="pt-1 text-emerald-500">•</span>
                     <span>{product.description}</span>
