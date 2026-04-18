@@ -6,11 +6,11 @@ import { getFirstProductHandle, getProductByHandle } from "@/lib/shopify/product
 
 export const revalidate = 300;
 
-const SEO_TITLE = "Cabin Pollen Catcher | Zataus";
+const SEO_TITLE = "Car Air Purifier for Dust and Pollen | Zataus";
 const SEO_DESCRIPTION =
-  "Cabin Pollen Catcher is a compact USB cabin filter for vans, cars, and small cabin spaces, designed for spring driving when dust and pollen feel heavier in enclosed spaces.";
+  "Cabin Pollen Catcher is a portable car air purifier designed for vans, cars, and small spaces during hay fever season, helping catch dust and pollen for a fresher-feeling drive.";
 const SEO_OG_DESCRIPTION =
-  "Compact USB cabin filter for vans, cars, and small cabin spaces. Built for spring driving and a fresher-feeling cabin.";
+  "Portable car air purifier for vans and cars. Designed for spring driving when dust and pollen feel heavier in enclosed spaces.";
 
 function getFeaturedHandle(): string | null {
   const handle = process.env.SHOPIFY_FEATURED_HANDLE?.trim();
@@ -180,6 +180,7 @@ export default async function Home() {
       "@type": "Brand",
       name: "Zataus",
     },
+    category: "Car air purifier",
     offers: primaryVariant
       ? {
           "@type": "Offer",

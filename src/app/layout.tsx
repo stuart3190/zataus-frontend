@@ -20,11 +20,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "Zataus",
   description:
-    "Zataus is a premium one-product storefront powered by Shopify Storefront API data.",
+    "Portable car air purifier for vans and cars, designed for dust and pollen during spring driving.",
   openGraph: {
     title: "Zataus",
     description:
-      "A refined Next.js storefront for zataus.com with live Shopify product data, premium presentation, and direct cart handoff.",
+      "Portable car air purifier for vans and cars, designed for dust and pollen during spring driving.",
     url: siteUrl,
     siteName: "Zataus",
     type: "website",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Zataus",
     description:
-      "A refined Next.js storefront for zataus.com with live Shopify product data and direct Shopify checkout flow.",
+      "Portable car air purifier for vans and cars, designed for dust and pollen during spring driving.",
   },
 };
 

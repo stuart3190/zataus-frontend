@@ -31,40 +31,41 @@ type ProductFact = {
 };
 
 const quickBenefits = [
-  "Cabin-focused",
+  "Helps catch dust and pollen",
+  "Made for cars and vans",
   "USB powered",
-  "Dust and pollen capture",
+  "Easy for everyday driving",
 ];
 
 const practicalReasons: DetailItem[] = [
   {
-    title: "Made for tighter cabin spaces",
+    title: "Made for cars, vans, and small spaces",
     description:
-      "Built for vans, cars, and other everyday spaces where the air around the driver feels closer.",
+      "Sized for enclosed everyday spaces where fresher-feeling air matters more on the move.",
   },
   {
-    title: "Simple to plug in and use",
+    title: "Simple for daily use",
     description:
-      "USB power keeps the setup practical for daily driving and commuting.",
+      "USB power keeps setup quick and practical for commuting, errands, and spring driving.",
   },
 ];
 
 const trustItems = [
   "Secure checkout ready to go",
   "One clear featured product",
-  "Designed for everyday driving",
+  "Direct Shopify checkout",
 ];
 
 const faqItems: DetailItem[] = [
   {
     title: "What is it for?",
     description:
-      "A compact USB cabin filter for vans, cars, and other small personal spaces.",
+      "A portable car air purifier for cars, vans, and other compact personal spaces.",
   },
   {
     title: "Will it fit in a van or car?",
     description:
-      "Yes. It is designed for vans, cars, and similarly compact cabin spaces.",
+      "Yes. It is designed for cars, vans, and similarly enclosed everyday spaces.",
   },
   {
     title: "How is it powered?",
@@ -73,7 +74,7 @@ const faqItems: DetailItem[] = [
   {
     title: "Can it help during hay fever season?",
     description:
-      "It is designed for spring driving when dust and pollen can feel more noticeable in enclosed cabin spaces, helping the cabin feel fresher and easier to live with.",
+      "It is designed for hay fever season and spring driving, when dust and pollen can feel more noticeable in enclosed car and van spaces.",
   },
 ];
 
@@ -125,7 +126,7 @@ function parseDescription(description: string): ParsedDescriptionSection[] {
       const headingCandidate = firstLine.replace(/:$/, "");
       const hasHeading =
         block.length > 1 &&
-        !/^[-*•]/.test(firstLine) &&
+        !/^[-*\u2022]/.test(firstLine) &&
         headingCandidate.length <= 60 &&
         headingCandidate.split(" ").length <= 6;
       const contentLines = hasHeading ? block.slice(1) : block;
@@ -133,7 +134,7 @@ function parseDescription(description: string): ParsedDescriptionSection[] {
       return {
         title: hasHeading ? headingCandidate : null,
         bullets: contentLines
-          .map((line) => line.replace(/^[-*•]\s*/, "").trim())
+          .map((line) => line.replace(/^[-*\u2022]\s*/, "").trim())
           .filter(Boolean),
       };
     })
@@ -146,22 +147,22 @@ function buildProductFacts(
   return [
     {
       label: "Made for",
-      value: "Vans, cars, and compact personal spaces",
+      value: "Cars, vans, and enclosed everyday spaces",
     },
     {
       label: "Power",
       value: "Simple USB connection",
     },
     {
-      label: "Use case",
-      value: "Spring driving and daily commuting",
+      label: "Best for",
+      value: "Spring driving, commuting, and everyday errands",
     },
     {
       label: "Benefit",
       bullets: [
-        "Helps catch dust and pollen in enclosed cabin spaces",
-        "Designed for spring driving and daily commuting",
-        "USB powered and compact, making it easy to use in vans and cars",
+        "Helps catch dust and pollen in enclosed car and van spaces",
+        "Designed for hay fever season and everyday driving",
+        "Compact USB setup that is easy to use on the road",
       ],
     },
   ];
@@ -286,14 +287,18 @@ export function ProductStorefront({
 
           <div className="order-1 lg:order-2">
             <div className="max-w-[34rem]">
-              <h1 className="max-w-[12ch] font-[family-name:var(--font-display)] text-[2.9rem] leading-[0.9] text-slate-950 sm:text-[3.8rem] lg:text-[4.7rem]">
-                {product.title}
+              <p className="text-xs font-medium uppercase tracking-[0.28em] text-slate-500">
+                Cabin Pollen Catcher
+              </p>
+
+              <h1 className="mt-3 max-w-[12ch] font-[family-name:var(--font-display)] text-[2.9rem] leading-[0.9] text-slate-950 sm:text-[3.8rem] lg:text-[4.7rem]">
+                Portable Car Air Purifier for Dust and Pollen
               </h1>
 
               <p className="mt-4 max-w-[27rem] text-[15px] leading-7 text-slate-700 sm:text-lg sm:leading-8">
                 Designed for spring driving when dust and pollen feel heavier in
-                enclosed cabin spaces. Helps the cabin feel fresher and easier to
-                live with.
+                enclosed car and van spaces. Helps the cabin feel fresher and
+                easier to live with.
               </p>
 
               <div className="mt-5 flex flex-wrap gap-2.5">
@@ -343,7 +348,9 @@ export function ProductStorefront({
               <div className="mt-6 flex flex-wrap gap-4 text-sm text-slate-600">
                 {trustItems.map((item) => (
                   <div key={item} className="flex items-center gap-2">
-                    <span className="text-emerald-500">•</span>
+                    <span aria-hidden="true" className="text-emerald-500">
+                      &bull;
+                    </span>
                     <span>{item}</span>
                   </div>
                 ))}
@@ -362,7 +369,7 @@ export function ProductStorefront({
               Why Drivers Like It
             </p>
             <h2 className="mt-3 max-w-[12ch] font-[family-name:var(--font-display)] text-[2.1rem] leading-[0.95] text-slate-950 sm:text-[2.8rem]">
-              A clearer fit for daily driving.
+              Built for everyday spring driving.
             </h2>
           </div>
           <div className="grid gap-6 sm:grid-cols-2 sm:gap-5 lg:max-w-3xl">
@@ -389,7 +396,7 @@ export function ProductStorefront({
               Product Details
             </p>
             <h2 className="mt-3 max-w-[12ch] font-[family-name:var(--font-display)] text-[2.1rem] leading-[0.95] text-slate-950 sm:text-[2.8rem]">
-              Practical details at a glance.
+              Buyer-friendly details at a glance.
             </h2>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
@@ -413,7 +420,9 @@ export function ProductStorefront({
                           key={bullet}
                           className="flex gap-3 text-sm leading-7 text-slate-700 sm:text-base"
                         >
-                          <span className="pt-1 text-emerald-500">•</span>
+                          <span aria-hidden="true" className="pt-1 text-emerald-500">
+                            &bull;
+                          </span>
                           <span>{bullet}</span>
                         </li>
                       ))}
